@@ -1,6 +1,12 @@
 const express = require('express');
 const app = express();
 
+//example of middleware
+app.use(function (req, res, next) {
+	console.log(Date.now());
+	next();
+});
+
 app.get('/', (req, res) => {
 	res.send('Hello world');
 });
