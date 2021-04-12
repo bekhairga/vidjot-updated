@@ -1,18 +1,20 @@
 const express = require('express');
 const app = express();
+const exphbs = require('express-handlebars');
 
-//example of middleware
-app.use(function (req, res, next) {
-	console.log(Date.now());
-	next();
-});
+//using handlebars middleware
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
 app.get('/', (req, res) => {
-	res.send('Hello world');
+	const title = 'welcome';
+	res.render('index', {
+		title: title,
+	});
 });
 
 app.get('/about', (req, res) => {
-	res.send('About');
+	res.render('about');
 });
 
 const PORT = 5000;
