@@ -1,0 +1,15 @@
+<h1>Edit idea</h1>
+<div class="card card-body">
+    <h3>Video Idea</h3>
+    <form action="/ideas" method="post">
+        <div class="form-group my-3">
+            <label for="title">Title</label>
+            <input class="form-control" type="text" name="title" value="{{idea.title}}" >
+        </div>
+         <div class="form-group my-3">
+            <label for="details">Details</label>
+            <textarea class="form-control" name="details">{{idea.details}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary my-2">Edit</button>
+    </form>
+</div>

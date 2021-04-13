@@ -1,3 +1,4 @@
+const { response } = require('express');
 const express = require('express');
 const app = express();
 const exphbs = require('express-handlebars');
@@ -34,7 +35,7 @@ app.get('/', (req, res) => {
 		title: title,
 	});
 });
-
+//getting about page
 app.get('/about', (req, res) => {
 	res.render('about');
 });
@@ -51,6 +52,15 @@ app.get('/ideas', (req, res) => {
 		.lean()
 		.then((ideas) => {
 			res.render('ideas/index', { ideas: ideas });
+		});
+});
+//get edit page
+app.get('/ideas/edit/:id', (req, res) => {
+	const id = req.params.id;
+	Idea.findOne({ _id: id })
+		.lean()
+		.then((idea) => {
+			res.render('ideas/edit', { idea });
 		});
 });
 //processing form
