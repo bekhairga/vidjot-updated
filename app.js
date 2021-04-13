@@ -22,7 +22,11 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 //express new way of using body parser
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(
+	express.urlencoded({
+		extended: true,
+	})
+);
 //routes
 app.get('/', (req, res) => {
 	const title = 'Welcome';
@@ -39,6 +43,15 @@ app.get('/about', (req, res) => {
 //views can be separated in the folder and to access the folders the following below code shows
 app.get('/ideas/add', (req, res) => {
 	res.render('ideas/add');
+});
+//idea index page
+app.get('/ideas', (req, res) => {
+	Idea.find({})
+		.sort({ date: 'desc' })
+		.lean()
+		.then((ideas) => {
+			res.render('ideas/index', { ideas: ideas });
+		});
 });
 //processing form
 app.post('/ideas', (req, res) => {
