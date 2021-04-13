@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 //connecting to mongoose
 mongoose
 	.connect('mongodb://localhost/vidjot-dev', {
@@ -28,6 +29,9 @@ app.use(
 		extended: true,
 	})
 );
+//method override middleware
+app.use(methodOverride('_method'));
+
 //routes
 app.get('/', (req, res) => {
 	const title = 'Welcome';
@@ -88,7 +92,19 @@ app.post('/ideas', (req, res) => {
 		});
 	}
 });
-
+//Edit form process
+app.put('/ideas/:id', (req, res) => {
+	Idea.findOne({
+		_id: req.params.id,
+	}).then((idea) => {
+		idea.title = req.body.title;
+		idea.details = req.body.details;
+		idea.date = Date.now();
+		idea.save().then((idea) => {
+			res.redirect('/ideas');
+		});
+	});
+});
 const PORT = 5000;
 
 app.listen(PORT, () => {

@@ -1,7 +1,8 @@
 <h1>Edit idea</h1>
 <div class="card card-body">
     <h3>Video Idea</h3>
-    <form action="/ideas" method="post">
+    <form action="/ideas/{{idea._id}}?_method=PUT" method="post">
+        <input type="hidden" name="_method" value="PUT" />
         <div class="form-group my-3">
             <label for="title">Title</label>
             <input class="form-control" type="text" name="title" value="{{idea.title}}" >
