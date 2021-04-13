@@ -1,10 +1,15 @@
 <h1>Ideas</h1>
 {{#each ideas}}
     <div class="card my-3">
-        <div class="card-body">
+        <div class="card-body d-grid gap-2">
             <h5 class="card-title">{{title}}</h5>
             <p class="card-text">{{details}}</p>
-            <a class="btn btn-dark btn-block" href="/ideas/edit/{{_id}}">Edit</a>
+            <a class="btn btn-dark btn-block mb-2" href="/ideas/edit/{{_id}}">Edit</a>
+            <form action="/ideas/{{_id}}?_method=DELETE" method="post" class="d-grid gap-2">
+             <input type="submit" class="btn btn-danger btn-block" value="Delete" />
+             <input type="hidden" name="_method" value="DELETE">
+            </form>
+           
         </div>
     </div>
 {{else}}
