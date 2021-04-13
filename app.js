@@ -50,7 +50,13 @@ app.post('/ideas', (req, res) => {
 		errors.push({ text: 'Please add details' });
 	}
 	if (errors.length === 0) {
-		res.send('ok');
+		const newUser = {
+			title: req.body.title,
+			details: req.body.details,
+		};
+		new Idea(newUser).save().then((idea) => {
+			res.redirect('ideas/');
+		});
 	} else {
 		res.render('ideas/add', {
 			errors: errors,
